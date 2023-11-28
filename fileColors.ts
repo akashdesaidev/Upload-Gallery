@@ -1,4 +1,8 @@
-export const fileColorMapping = {
+type FileColorMapping ={
+  [key: string]: string;
+}
+
+ export const fileColorMapping:FileColorMapping = {
     gif: '#1E90FF', // Dodger Blue
     jpeg: '#FFD700', // Yellow
     jpg: '#FFD700', // Yellow
