@@ -1,20 +1,25 @@
 "use client";
-
+import {FileIcon,defaultStyles} from "react-file-icon"
 import { FileType } from "@/Typings";
 import { ColumnDef } from "@tanstack/react-table";
-import { FileIcon } from "lucide-react";
 import prettyBytes from "pretty-bytes";
+import { fileColorMapping } from "@/fileColors";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 
 export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "type",
     header: "Type",
     cell: ({ renderValue, ...props }) => {
+      const type = renderValue() as string;
+      const extension = type.split("/")[1];
       return (
-       <FileIcon/>
+        <div className="w-10">
+          <FileIcon extension={extension}
+          labelColor={fileColorMapping[extension]}
+          //@ts-ignore
+          {...defaultStyles[extension]} />
+        </div>
       );
     },
   },
