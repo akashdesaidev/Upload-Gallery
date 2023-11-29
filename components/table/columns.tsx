@@ -12,6 +12,7 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
+import { useStore } from "@/store/store";
 
 export const columns: ColumnDef<FileType>[] = [
   {
@@ -35,12 +36,27 @@ export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "filename",
     header: "Filename",
-    cell: ({ renderValue, ...props }) => {
+    cell: ({ renderValue,row, ...props }) => {
+      const [filedID, setFieldId, setIsEditModelOpen] = useStore((state) => [
+        state.fieldId,
+        state.setFieldId,
+        state.setIsEditModalOpen,
+      ]);
+
+      const openEdit = (fieldId:string) => {
+        setFieldId(fieldId);
+        setIsEditModelOpen(true);
+      
+      };
+
+
       return (
-        <div className="text-xs md:text-sm w-10">
-          <div>{renderValue() as string}</div>
-          <PencilIcon className="w-4" /> ...
-        </div>
+        <button className="flex" onClick= {()=>openEdit(row.id)}>
+          <span className=" flex text-blue-300 gap-4">
+            <div>{renderValue() as string}</div>
+            <PencilIcon className="w-3 " />
+          </span>
+        </button>
       );
     },
   },
@@ -52,12 +68,8 @@ export const columns: ColumnDef<FileType>[] = [
 
       return (
         <div>
-          <div>
-            {date.toLocaleDateString()}
-          </div>
-          <div>
-            {date.toLocaleTimeString()}
-          </div>
+          <div>{date.toLocaleDateString()}</div>
+          <div>{date.toLocaleTimeString()}</div>
         </div>
       );
     },
@@ -90,10 +102,23 @@ export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "id",
     header: "Delete",
-    cell: ({ renderValue, ...props }) => {
+    cell: ({ renderValue, row, ...props }) => {
+      const [filedID, setFieldId,isDeleteModalOpen, setIsDeleteModelOpen] = useStore((state) => [
+        state.fieldId,
+        state.setFieldId,
+        state.isDeleteModalOpen,
+        state.setIsDeleteModalOpen,
+      ]);
+    
+
+      const openDelete = (fieldId: string) => {
+        setFieldId(fieldId);
+        setIsDeleteModelOpen(true);
+      };
+
       return (
-        <Button variant={"ghost"} className="">
-          <TrashIcon className="w-10"/>
+        <Button variant={"ghost"} onClick={()=>openDelete(renderValue() as string)}>
+          <TrashIcon className="w-10" />
         </Button>
       );
     },
