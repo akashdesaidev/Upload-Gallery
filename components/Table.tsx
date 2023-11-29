@@ -44,9 +44,11 @@ const Table = ({ tableData }: { tableData: FileType[] }) => {
         Sort by
         {sort === "desc" ? " Oldest" : " Newest"}
       </Button>
-      <Suspense fallback={<div>loading...</div>}>
-        <DataTable columns={columns} data={initialData} />
-      </Suspense>
+      <div className="w-[100vh-100px]">
+        <Suspense fallback={<div>loading...</div>}>
+          <DataTable columns={columns} data={initialData} />
+        </Suspense>
+      </div>
     </div>
   );
 };

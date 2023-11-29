@@ -13,21 +13,19 @@ const page = async () => {
 
   const tableData: FileType[] = StoredFiles.docs.map((doc) => ({
     id: doc.id,
-    fullname:doc.data().fullname,
+    fullname: doc.data().fullname,
     filename: doc.data().filename || doc.id,
-    timestamp:new Date(doc.data().timestamp?.seconds*1000)||undefined,
+    timestamp: new Date(doc.data().timestamp?.seconds * 1000) || undefined,
     type: doc.data().type,
     size: doc.data().size,
     downloadURL: doc.data().downloadURL,
   }));
 
-  
   return (
     <div>
       <DropzoneComponent />
       <Suspense fallback={<div>loading...</div>}>
-
-      <Table tableData={tableData} />
+        <Table tableData={tableData} />
       </Suspense>
     </div>
   );

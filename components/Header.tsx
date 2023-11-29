@@ -1,5 +1,6 @@
 import { SignInButton, SignedOut, UserButton, auth } from "@clerk/nextjs";
 import { ModeToggle } from "./Toggle";
+import { dark } from "@clerk/themes";
 
 const Header = () => {
   const user = auth();
@@ -11,11 +12,11 @@ const Header = () => {
         <div className="flex space-x-5 items-center">
           <ModeToggle />
           {!user.userId ? (
-            <SignedOut>
-              <SignInButton afterSignInUrl="/dashboard"></SignInButton>
+            <SignedOut >
+              <SignInButton mode="modal" afterSignInUrl="/dashboard" ></SignInButton>
             </SignedOut>
           ) : (
-            <UserButton />
+            <UserButton afterSignOutUrl="/"/>
           )}
         </div>
       </div>
