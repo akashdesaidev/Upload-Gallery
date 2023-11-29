@@ -31,9 +31,10 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-        <div className="flex1 m-8">
+        <div className="bg-black rounded-lg flex1 p-8">
           <Image
-            src="/Demo_Img.png"
+          className=" rounded-lg"
+            src="/Demo_Img2.png"
             width={700}
             height={500}
             alt=""
