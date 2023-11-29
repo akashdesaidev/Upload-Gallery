@@ -1,6 +1,8 @@
 import { SignInButton, SignedOut, UserButton, auth } from "@clerk/nextjs";
 import { ModeToggle } from "./Toggle";
 import { dark } from "@clerk/themes";
+import Image from "next/image";
+import { Box, FileIcon } from "lucide-react";
 
 const Header = () => {
   const user = auth();
@@ -8,15 +10,21 @@ const Header = () => {
   return (
     <header className="bg-gray-100 dark:bg-slate-900 px-3">
       <div className="flex justify-between p-3 items-center">
-        <div className="font-bold">Upload Gallery</div>
+        <div className="flex font-bold items-center gap-2">
+          <Box/>
+          <span>Upload Gallery</span>
+        </div>
         <div className="flex space-x-5 items-center">
           <ModeToggle />
           {!user.userId ? (
-            <SignedOut >
-              <SignInButton mode="modal" afterSignInUrl="/dashboard" ></SignInButton>
+            <SignedOut>
+              <SignInButton
+                mode="modal"
+                afterSignInUrl="/dashboard"
+              ></SignInButton>
             </SignedOut>
           ) : (
-            <UserButton afterSignOutUrl="/"/>
+            <UserButton afterSignOutUrl="/" />
           )}
         </div>
       </div>
