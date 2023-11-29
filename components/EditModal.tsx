@@ -11,14 +11,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { db } from "@/firebase";
-import { useStore } from "@/store/store";
+import { AppStore } from "@/store/store";
 import { useUser } from "@clerk/nextjs";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Input } from "./ui/input";
 
 export function EditDialog() {
-  const [filedID, setFieldId, isEditModalOpen, setIsEditModelOpen] = useStore(
+  const [filedID, setFieldId, isEditModalOpen, setIsEditModelOpen] = AppStore(
     (state) => [
       state.fieldId,
       state.setFieldId,

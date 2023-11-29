@@ -19,7 +19,7 @@ import { FileType } from "@/Typings";
 import { TrashIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DeleteDialog } from "../DeleteModal";
-import { EditDialog } from "../EditModal copy";
+import { EditDialog } from "../EditModal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

@@ -12,7 +12,7 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { useStore } from "@/store/store";
+import { AppStore } from "@/store/store";
 
 export const columns: ColumnDef<FileType>[] = [
   {
@@ -37,7 +37,7 @@ export const columns: ColumnDef<FileType>[] = [
     accessorKey: "filename",
     header: "Filename",
     cell: ({ renderValue, cell,row, ...props }) => {
-      const [filedID, setFieldId, setIsEditModelOpen] = useStore((state) => [
+      const [filedID, setFieldId, setIsEditModelOpen] = AppStore((state) => [
         state.fieldId,
         state.setFieldId,
         state.setIsEditModalOpen,
@@ -103,7 +103,7 @@ export const columns: ColumnDef<FileType>[] = [
     header: "Delete",
     cell: ({ renderValue, row, ...props }) => {
       const [filedID, setFieldId, isDeleteModalOpen, setIsDeleteModelOpen] =
-        useStore((state) => [
+        AppStore((state) => [
           state.fieldId,
           state.setFieldId,
           state.isDeleteModalOpen,

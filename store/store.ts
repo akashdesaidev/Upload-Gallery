@@ -14,7 +14,7 @@ interface AppState {
   setFileName: (filename: string) => void;
 }
 
-export const useStore = create<AppState>((set) => ({
+export const AppStore = create<AppState>((set) => ({
   fieldId: null,
   setFieldId: (id: string) => set((state: AppState) => ({ fieldId: id })),
 
