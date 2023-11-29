@@ -18,7 +18,8 @@ import {
 import { FileType } from "@/Typings";
 import { TrashIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DeletDialog } from "../DeleteModal";
+import { DeleteDialog } from "../DeleteModal";
+import { EditDialog } from "../EditModal copy";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,7 +73,8 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
-                {<DeletDialog/>}
+                {<DeleteDialog/>}
+                {<EditDialog/>}
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}

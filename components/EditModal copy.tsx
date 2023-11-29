@@ -12,40 +12,49 @@ import {
 } from "@/components/ui/dialog";
 import { db } from "@/firebase";
 import { useStore } from "@/store/store";
-import {  useUser } from "@clerk/nextjs";
-import { deleteDoc, doc } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { Input } from "./ui/input";
 
-export function DeleteDialog() {
-  const [filedID, setFieldId, isDeleteModalOpen, setIsDeleteModelOpen] =
-    useStore((state) => [
+export function EditDialog() {
+  const [filedID, setFieldId, isEditModalOpen, setIsEditModelOpen] = useStore(
+    (state) => [
       state.fieldId,
       state.setFieldId,
-      state.isDeleteModalOpen,
-      state.setIsDeleteModalOpen,
-    ]);
+      state.isEditModalOpen,
+      state.setIsEditModalOpen,
+    ]
+  );
+
+  const [input, setInput] = useState("");
   const { user } = useUser();
-  const handleDelete = async (id: string) => {
+  const handleEdit = async (id: string) => {
     if (!user || !filedID) return;
 
-    await deleteDoc(doc(db, "users", user.id, "files", filedID));
+    await updateDoc(doc(db, "users", user.id, "files", filedID), {
+      filename: input,
+    });
     setFieldId("");
-    setIsDeleteModelOpen(false);
+    setInput("");
+    setIsEditModelOpen(false);
   };
   return (
     <Dialog
-      open={isDeleteModalOpen}
+      open={isEditModalOpen}
       onOpenChange={(isOpen) => {
-        setIsDeleteModelOpen(isOpen);
+        setIsEditModelOpen(isOpen);
       }}
     >
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Are you sure you want to delete?</DialogTitle>
+          <DialogTitle>Rename your file</DialogTitle>
           <DialogDescription>
-            This action can't be undone. This will permanently delete your file
-            !
+            Please enter the desired name for this file !
           </DialogDescription>
         </DialogHeader>
+
+        <Input onChange={(e) => setInput(e.target.value)} />
 
         <div className="flex space-x-2 py-3">
           <Button
@@ -53,7 +62,7 @@ export function DeleteDialog() {
             size="sm"
             variant="secondary"
             className="px-3 flex-1"
-            onClick={() => setIsDeleteModelOpen(false)}
+            onClick={() => setIsEditModelOpen(false)}
           >
             <span className="sr-only">Cancel</span>
             <span>Cancel</span>
@@ -62,14 +71,13 @@ export function DeleteDialog() {
           <Button
             size="sm"
             type="submit"
-            variant="destructive"
             className="px-3 flex-1"
             onClick={() => {
-              handleDelete(filedID as string);
+              handleEdit(filedID as string);
             }}
           >
             <span className="sr-only">Cancel</span>
-            <span>Delete</span>
+            <span>Rename</span>
           </Button>
         </div>
       </DialogContent>

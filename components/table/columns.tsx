@@ -36,22 +36,21 @@ export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "filename",
     header: "Filename",
-    cell: ({ renderValue,row, ...props }) => {
+    cell: ({ renderValue, cell,row, ...props }) => {
       const [filedID, setFieldId, setIsEditModelOpen] = useStore((state) => [
         state.fieldId,
         state.setFieldId,
         state.setIsEditModalOpen,
       ]);
 
-      const openEdit = (fieldId:string) => {
+      const openEdit = (fieldId: string) => {
         setFieldId(fieldId);
         setIsEditModelOpen(true);
-      
       };
-
+      
 
       return (
-        <button className="flex" onClick= {()=>openEdit(row.id)}>
+        <button className="flex" onClick={() => openEdit(row.original.id)}>
           <span className=" flex text-blue-300 gap-4">
             <div>{renderValue() as string}</div>
             <PencilIcon className="w-3 " />
@@ -103,13 +102,13 @@ export const columns: ColumnDef<FileType>[] = [
     accessorKey: "id",
     header: "Delete",
     cell: ({ renderValue, row, ...props }) => {
-      const [filedID, setFieldId,isDeleteModalOpen, setIsDeleteModelOpen] = useStore((state) => [
-        state.fieldId,
-        state.setFieldId,
-        state.isDeleteModalOpen,
-        state.setIsDeleteModalOpen,
-      ]);
-    
+      const [filedID, setFieldId, isDeleteModalOpen, setIsDeleteModelOpen] =
+        useStore((state) => [
+          state.fieldId,
+          state.setFieldId,
+          state.isDeleteModalOpen,
+          state.setIsDeleteModalOpen,
+        ]);
 
       const openDelete = (fieldId: string) => {
         setFieldId(fieldId);
@@ -117,7 +116,10 @@ export const columns: ColumnDef<FileType>[] = [
       };
 
       return (
-        <Button variant={"ghost"} onClick={()=>openDelete(renderValue() as string)}>
+        <Button
+          variant={"ghost"}
+          onClick={() => openDelete(renderValue() as string)}
+        >
           <TrashIcon className="w-10" />
         </Button>
       );
